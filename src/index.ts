@@ -1,1 +1,2 @@
-export type { ActiveDirectoryConstructor } from './types/ad';
+export * from './core/ActiveDirectory';
+export * from './types/ad';
