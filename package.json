@@ -1,0 +1,42 @@
+{
+  "name": "active-directory",
+  "version": "0.0.1",
+  "description": "A lightweight, TypeScript-ready Active Directory client for seamless authentication. (AuthN) and authorization (AuthZ) against Microsoft Active Directory using LDAP. Designed for scalability with built-in range retrieval support to efficiently handle large AD environments.",
+  "module": "index.ts",
+  "type": "module",
+  "private": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrphilipp7/local-manager.git"
+  },
+  "homepage": "https://github.com/mrphilipp7/local-manager.git#readme",
+  "keywords": [
+    "ldap",
+    "active directory",
+    "windows",
+    "ad client",
+    "authentication",
+    "directory service",
+    "ldap client",
+    "windows authentication",
+    "user authentication",
+    "typescript"
+  ],
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir dist",
+    "build:types": "tsc -p tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2019", // Good balance of modern JS and compatibility
+    "module": "ESNext", // Most Node.js projects use CommonJS; change if you want ESM
+    "declaration": true, // Generate .d.ts files
+    "outDir": "dist", // Output folder for compiled JS + types
+    "rootDir": "src", // Root folder of your source files
+    "strict": true, // Enable all strict type checks
+    "moduleResolution": "Node", // Node module resolution
+    "esModuleInterop": true, // For clean import/export interop
+    "skipLibCheck": true, // Skip type checking of dependencies to speed build
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src", "src/types"]
+}
