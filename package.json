@@ -2,20 +2,6 @@
   "name": "active-directory",
   "version": "0.0.1",
   "description": "A lightweight, TypeScript-ready Active Directory client for seamless authentication. (AuthN) and authorization (AuthZ) against Microsoft Active Directory using LDAP. Designed for scalability with built-in range retrieval support to efficiently handle large AD environments.",
-  "module": "index.ts",
-  "type": "module",
-  "private": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mrphilipp7/local-manager.git"
-  },
-  "homepage": "https://github.com/mrphilipp7/local-manager.git#readme",
   "keywords": [
     "ldap",
     "active directory",
@@ -28,10 +14,29 @@
     "user authentication",
     "typescript"
   ],
+  "homepage": "https://github.com/mrphilipp7/active-directory.git#readme",
+  "license": "MIT",
+  "author": {
+    "name": "Zach Philipp",
+    "url": "https://www.npmjs.com/~mrphilipp7"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrphilipp7/active-directory.git"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "dev": "bun run src/index.ts",
     "build": "bun build src/index.ts --outdir dist",
-    "build:types": "tsc -p tsconfig.build.json"
+    "build:types": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build && npm run build:types"
   },
   "devDependencies": {
     "@types/bun": "latest"
