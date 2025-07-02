@@ -54,6 +54,7 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "dependencies": {
+    "ldapts": "^8.0.4",
     "zod": "^3.25.67"
   }
 }
