@@ -40,7 +40,6 @@ export default defineConfig([
     rules: {
       semi: ['error', 'always'],
       quotes: ['error', 'single', { avoidEscape: true }],
-      'comma-dangle': ['error', 'always-multiline'],
       'object-curly-spacing': ['error', 'always'],
       'arrow-parens': ['error', 'always'],
 
