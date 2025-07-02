@@ -4,3 +4,8 @@ export interface ActiveDirectoryConstructor {
   username: string;
   password: string;
 }
+
+export interface AuthenticateUserProps {
+  username: string;
+  password: string;
+}
