@@ -1,3 +1,3 @@
 export class ActiveDirectory {}
 
-const hello = ';';
+const _ = ';';

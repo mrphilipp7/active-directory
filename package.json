@@ -16,7 +16,8 @@
     "eslint": "^9.30.0",
     "eslint-plugin-import": "^2.32.0",
     "globals": "^16.3.0",
-    "typescript-eslint": "^8.35.1"
+    "typescript-eslint": "^8.35.1",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -47,7 +48,8 @@
     "build:types": "tsc -p tsconfig.build.json",
     "prepare": "npm run build && npm run build:types",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "test": "vitest"
   },
   "type": "module",
   "types": "dist/index.d.ts"
