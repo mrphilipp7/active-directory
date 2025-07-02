@@ -2,10 +2,18 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
     "rootDir": "src", // only compile code from src
     "noEmit": false // ensure output happens
   },
   "include": ["src"],
-  "exclude": ["tests", "**/*.test.ts", "**/*.spec.ts"]
+  "exclude": [
+    "node_modules",
+    "tests",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
 }
