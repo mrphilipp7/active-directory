@@ -1,3 +1,4 @@
+import { Client } from 'ldapts';
 import z from 'zod';
 
 import type { ActiveDirectoryConstructor } from '../types/ad';
@@ -21,5 +22,18 @@ export class ActiveDirectory {
     this.baseDN = config.baseDN;
     this.username = config.username;
     this.password = config.password;
+  }
+
+  async testConnection(): Promise<boolean> {
+    const client = new Client({ url: this.url });
+
+    try {
+      await client.bind(this.username, this.password);
+      return true;
+    } catch (error) {
+      throw new Error(`LDAP bind failed: ${(error as Error).message}`);
+    } finally {
+      await client.unbind();
+    }
   }
 }

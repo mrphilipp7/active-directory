@@ -97,3 +97,32 @@ describe("Creating 'ActiveDirectory' instance", () => {
     }
   });
 });
+
+describe('ActiveDirectory methods', () => {
+  describe('test connection', () => {
+    describe('docker test', () => {
+      it('should fail', async () => {
+        const config = {
+          url: 'ldap://localhost:389',
+          baseDN: 'dc=example,dc=org',
+          username: 'cn=admin,dc=example,dc=org',
+          password: '', // incorrect password
+        };
+        const instance = new ActiveDirectory(config);
+        await expect(instance.testConnection()).rejects.toThrowError(
+          'LDAP bind failed'
+        );
+      });
+      it('should pass', async () => {
+        const config = {
+          url: 'ldap://localhost:389',
+          baseDN: 'dc=example,dc=org',
+          username: 'cn=admin,dc=example,dc=org',
+          password: 'admin',
+        };
+        const instance = new ActiveDirectory(config);
+        expect(await instance.testConnection()).toBe(true);
+      });
+    });
+  });
+});
