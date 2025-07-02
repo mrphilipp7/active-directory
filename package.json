@@ -47,10 +47,13 @@
     "build": "bun build src/index.ts --outdir dist",
     "build:types": "tsc -p tsconfig.build.json",
     "prepare": "npm run build && npm run build:types",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts --ignore-pattern '**/*.d.ts'",
     "lint:fix": "eslint . --ext .ts --fix",
     "test": "vitest"
   },
   "type": "module",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "zod": "^3.25.67"
+  }
 }
