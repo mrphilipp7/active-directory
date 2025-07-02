@@ -47,7 +47,7 @@
     "build": "bun build src/index.ts --outdir dist",
     "build:types": "tsc -p tsconfig.build.json",
     "prepare": "npm run build && npm run build:types",
-    "lint": "eslint . --ext .ts --ignore-pattern '**/*.d.ts'",
+    "lint": "eslint . --ext .ts --ignore-pattern '**/*.d.ts' --ignore-pattern 'dist/**'",
     "lint:fix": "eslint . --ext .ts --fix",
     "test": "vitest"
   },
