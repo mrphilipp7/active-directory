@@ -1,11 +1,19 @@
 import { Client } from 'ldapts';
 import z from 'zod';
 
-import type { ActiveDirectoryConstructor } from '../types/ad';
+import type {
+  ActiveDirectoryConstructor,
+  AuthenticateUserProps,
+} from '../types/ad';
 
 const ActiveDirectoryContructorSchema = z.object({
   url: z.string(),
   baseDN: z.string(),
+  username: z.string(),
+  password: z.string(),
+});
+
+const AuthenticateUserSchema = z.object({
   username: z.string(),
   password: z.string(),
 });
@@ -28,12 +36,54 @@ export class ActiveDirectory {
     const client = new Client({ url: this.url });
 
     try {
-      await client.bind(this.username, this.password);
+      await client.bind(this.username, this.password); // bind as admin
       return true;
     } catch (error) {
       throw new Error(`LDAP bind failed: ${(error as Error).message}`);
     } finally {
       await client.unbind();
     }
+  }
+
+  // legacy function for verifying login
+  async authenticateRaw(username: string, password: string): Promise<boolean> {
+    AuthenticateUserSchema.parse({ username, password });
+
+    const client = new Client({ url: this.url });
+    try {
+      await client.bind(username, password);
+      return true;
+    } catch (err) {
+      throw new Error(`Authentication failed: ${(err as Error).message}`);
+    } finally {
+      await client.unbind();
+    }
+  }
+
+  /*
+  async authenticateUser({
+    username,
+    password,
+  }: AuthenticateUserProps): Promise<boolean> {
+    const client = new Client({ url: this.url });
+    try {
+      AuthenticateUserSchema.parse({ username, password });
+      
+      await client.bind(this.username, this.password); // bind as admin
+      
+      return true;
+    } catch (error) {
+      throw new Error(`Authentication failed: ${(error as Error).message}`);
+    } finally {
+      await client.unbind();
+    }
+  }
+  */
+
+  // util helper functions
+  formatDomainUser(username: string, domain: string) {
+    // If username already has a domain prefix, return as is
+    if (username.includes('\\')) return username;
+    return `${domain}\\${username}`;
   }
 }
