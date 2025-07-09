@@ -128,7 +128,7 @@ describe('ActiveDirectory methods', () => {
   });
 
   // legacy function
-  describe('test raw authentication ', () => {
+  describe('test authentication ', () => {
     describe('docker test', () => {
       it('should pass', async () => {
         const config = {
@@ -139,10 +139,10 @@ describe('ActiveDirectory methods', () => {
         };
         const instance = new ActiveDirectory(config);
         expect(
-          await instance.authenticateRaw(
-            'uid=john.doe,ou=users,dc=example,dc=org',
-            'password'
-          )
+          await instance.authenticate({
+            username: 'uid=john.doe,ou=users,dc=example,dc=org',
+            password: 'password',
+          })
         ).toBe(true);
       });
 
@@ -155,10 +155,10 @@ describe('ActiveDirectory methods', () => {
         };
         const instance = new ActiveDirectory(config);
         await expect(
-          instance.authenticateRaw(
-            'uid=john.doe,ou=users,dc=example,dc=org',
-            'wrong password'
-          )
+          instance.authenticate({
+            username: 'uid=john.doe,ou=users,dc=example,dc=org',
+            password: 'wrong password',
+          })
         ).rejects.toThrowError('Authentication failed');
       });
 
@@ -171,11 +171,31 @@ describe('ActiveDirectory methods', () => {
         };
         const instance = new ActiveDirectory(config);
         await expect(
-          instance.authenticateRaw(
-            'uid=non-existent,ou=users,dc=example,dc=org',
-            'wrong password'
-          )
+          instance.authenticate({
+            username: 'uid=non-existent,ou=users,dc=example,dc=org',
+            password: 'wrong password',
+          })
         ).rejects.toThrowError('Authentication failed');
+      });
+
+      it('authenticates user via search filter', async () => {
+        const instance = new ActiveDirectory({
+          url: 'ldap://localhost:389',
+          baseDN: 'dc=example,dc=org',
+          username: 'cn=admin,dc=example,dc=org',
+          password: 'admin',
+        });
+
+        const result = await instance.authenticate({
+          username: 'john.doe',
+          password: 'cGFzc3dvcmQ=',
+          user: {
+            searchBase: 'dc=example,dc=org',
+            searchFilter: '(uid={{username}})',
+          },
+        });
+
+        expect(result).toBe(true);
       });
     });
   });

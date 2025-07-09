@@ -8,4 +8,8 @@ export interface ActiveDirectoryConstructor {
 export interface AuthenticateUserProps {
   username: string;
   password: string;
+  user?: {
+    searchBase: string;
+    searchFilter: string; // e.g. '(uid={{username}})'
+  };
 }
