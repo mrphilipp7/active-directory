@@ -10,4 +10,10 @@ export const ActiveDirectoryContructorSchema = z.object({
 export const AuthenticateUserSchema = z.object({
   username: z.string(),
   password: z.string(),
+  user: z
+    .object({
+      searchBase: z.string(),
+      searchFilter: z.string(),
+    })
+    .optional(),
 });
