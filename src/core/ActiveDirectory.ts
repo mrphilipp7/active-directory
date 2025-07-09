@@ -49,6 +49,7 @@ export class ActiveDirectory {
     return this._password;
   }
 
+  /* --- function provides a quick test to see if client is binding --- */
   public async testConnection(): Promise<boolean> {
     const client = new Client({ url: this.url });
 
@@ -79,11 +80,15 @@ export class ActiveDirectory {
 
     try {
       if (user) {
+        // in-depth control over authentication
         await client.bind(this._username, this._password);
-        const { searchEntries } = await client.search(user.searchBase, {
-          scope: 'sub',
-          filter: `(uid=${username})`,
-        });
+        const searchFilter = this._createFilter(user.searchFilter, username);
+
+        const searchEntries = await this._searchEntries(
+          client,
+          searchFilter,
+          user.searchBase
+        );
 
         if (searchEntries.length === 0) throw new Error('User not found');
         const { dn } = searchEntries[0];
@@ -91,6 +96,7 @@ export class ActiveDirectory {
 
         return true;
       } else {
+        // legacy authentication
         await client.bind(username, password);
         return true;
       }
@@ -101,7 +107,20 @@ export class ActiveDirectory {
     }
   }
 
-  // util helper functions
+  /* --- utility functions for in-depth authentication --- */
+  private _createFilter(userFilter: string, username: string) {
+    return userFilter.replace('{{username}}', username);
+  }
+
+  private async _searchEntries(client: Client, filter: string, base: string) {
+    const { searchEntries } = await client.search(base, {
+      scope: 'sub',
+      filter,
+    });
+    return searchEntries;
+  }
+
+  /* --- utility function for formatting user when authentication --- */
   formatDomainUser(username: string, domain: string) {
     // If username already has a domain prefix, return as is
     if (username.includes('\\')) return username;
