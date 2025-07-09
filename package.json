@@ -44,7 +44,7 @@
   "private": false,
   "scripts": {
     "dev": "bun run src/index.ts",
-    "build": "bun build src/index.ts --outdir dist",
+    "build": "bun build src/index.ts --outdir dist --target=node",
     "build:types": "tsc -p tsconfig.build.json",
     "prepare": "npm run build && npm run build:types",
     "lint": "eslint . --ext .ts --ignore-pattern '**/*.d.ts' --ignore-pattern 'dist/**'",
