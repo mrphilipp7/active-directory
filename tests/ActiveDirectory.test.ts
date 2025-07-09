@@ -188,9 +188,9 @@ describe('ActiveDirectory methods', () => {
 
         const result = await instance.authenticate({
           username: 'john.doe',
-          password: 'cGFzc3dvcmQ=',
+          password: 'password',
           user: {
-            searchBase: 'dc=example,dc=org',
+            searchBase: 'ou=users,dc=example,dc=org',
             searchFilter: '(uid={{username}})',
           },
         });

@@ -79,46 +79,26 @@ export class ActiveDirectory {
 
     try {
       if (user) {
-        const userDn = await this._resolveUserDn(client, username, user);
+        await client.bind(this._username, this._password);
+        const { searchEntries } = await client.search(user.searchBase, {
+          scope: 'sub',
+          filter: `(uid=${username})`,
+        });
 
-        await client.bind(userDn, password);
+        if (searchEntries.length === 0) throw new Error('User not found');
+        const { dn } = searchEntries[0];
+        await client.bind(dn, password);
+
+        return true;
       } else {
         await client.bind(username, password);
+        return true;
       }
-
-      return true;
     } catch (err) {
       throw new Error(`Authentication failed: ${(err as Error).message}`);
     } finally {
       await client.unbind();
     }
-  }
-
-  private async _resolveUserDn(
-    client: Client,
-    username: string,
-    user: {
-      searchBase: string;
-      searchFilter: string;
-    }
-  ): Promise<string> {
-    const { searchBase, searchFilter } = user;
-    const filter = searchFilter.replace('{{username}}', username);
-
-    const { searchEntries } = await client.search(searchBase, {
-      scope: 'sub',
-      filter,
-    });
-
-    if (!searchEntries.length) {
-      throw new Error(`User "${username}" not found`);
-    }
-
-    const first = searchEntries[0] as Record<string, any>;
-
-    if (!first.dn) throw new Error('User entry missing DN');
-
-    return first.dn;
   }
 
   // util helper functions
