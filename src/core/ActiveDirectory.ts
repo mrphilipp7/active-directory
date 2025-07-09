@@ -1,22 +1,14 @@
 import { Client } from 'ldapts';
-import z from 'zod';
 
 import type {
   ActiveDirectoryConstructor,
   AuthenticateUserProps,
 } from '../types/ad';
 
-const ActiveDirectoryContructorSchema = z.object({
-  url: z.string(),
-  baseDN: z.string(),
-  username: z.string(),
-  password: z.string(),
-});
-
-const AuthenticateUserSchema = z.object({
-  username: z.string(),
-  password: z.string(),
-});
+import {
+  ActiveDirectoryContructorSchema,
+  AuthenticateUserSchema,
+} from './schemas';
 
 export class ActiveDirectory {
   private _url: string; // The url of the ldap server
