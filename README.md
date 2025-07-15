@@ -45,4 +45,5 @@ The class also has a small utility function to help you format names when applyi
 instance.formatDomainUser('test-user', 'TEST-DOMAIN') // will create 'TEST-DOMAIN\\test-user' 
 ```
 
-This project is still very new and constantly growing. Give it time!
+⚠️ This is an early version with limited functionality. 
+More features coming soon!
