@@ -1,6 +1,9 @@
 {
   "name": "@mrphilipp7/active-directory",
   "version": "0.0.1-beta",
+  "publishConfig": {
+    "access": "public"
+  },
   "author": {
     "name": "Zach Philipp",
     "url": "https://www.npmjs.com/~mrphilipp7"
