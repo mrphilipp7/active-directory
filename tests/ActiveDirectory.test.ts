@@ -138,9 +138,10 @@ describe('ActiveDirectory methods', () => {
           password: 'admin',
         };
         const instance = new ActiveDirectory(config);
+        const username = 'john.doe'; // direct addition to authentication. Formatting is required.
         expect(
           await instance.authenticate({
-            username: 'uid=john.doe,ou=users,dc=example,dc=org',
+            username: `uid=${username},ou=users,dc=example,dc=org`,
             password: 'password',
           })
         ).toBe(true);

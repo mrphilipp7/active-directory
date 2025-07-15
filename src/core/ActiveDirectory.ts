@@ -113,7 +113,7 @@ export class ActiveDirectory {
   }
 
   /* --- utility function for formatting user when authentication --- */
-  formatDomainUser(username: string, domain: string) {
+  public formatDomainUser(username: string, domain: string) {
     // If username already has a domain prefix, return as is
     if (username.includes('\\')) return username;
     return `${domain}\\${username}`;
