@@ -2,7 +2,7 @@
 Inspired by https://www.npmjs.com/package/activedirectory, this package helps to bring a modern, simple, typescript first approach towards ineracting with active directory.
 
 ```bash
-npm install tb
+npm i @mrphilipp7/active-directory
 ```
 
 As of now, the package only supports authentication. Additional functionality will be added in future releases.
