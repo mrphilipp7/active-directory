@@ -40,5 +40,9 @@ const result = await instance.authenticate({
   },
 });
 ```
+The class also has a small utility function to help you format names when applying them for authentication.
+```typescript
+instance.formatDomainUser('test-user', 'TEST-DOMAIN') // will create 'TEST-DOMAIN\\test-user' 
+```
 
 This project is still very new and constantly growing. Give it time!
