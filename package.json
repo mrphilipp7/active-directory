@@ -1,6 +1,6 @@
 {
   "name": "@mrphilipp7/active-directory",
-  "version": "0.0.2",
+  "version": "0.0.2-beta",
   "publishConfig": {
     "access": "public"
   },
